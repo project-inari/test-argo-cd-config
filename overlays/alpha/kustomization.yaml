@@ -7,8 +7,8 @@ resources:
   - ../../base
 
 images:
-  - name: localhost:5001/test-argo
-    newName: localhost:5001/test-argo
+  - name: asia-southeast1-docker.pkg.dev/inari-poc/inari-poc-registry/test-argo
+    newName: asia-southeast1-docker.pkg.dev/inari-poc/inari-poc-registry/test-argo
     newTag: latest
 
 patchesStrategicMerge:

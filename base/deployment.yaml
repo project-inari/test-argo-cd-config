@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: test-argo
-          image: localhost:5001/test-argo
+          image: asia-southeast1-docker.pkg.dev/inari-poc/inari-poc-registry/test-argo
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
