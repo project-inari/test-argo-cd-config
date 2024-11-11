@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-argo
+  labels:
+    app.kubernetes.io/name: test-argo
+    app.kubernetes.io/instance: test-argo
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: test-argo
+      app.kubernetes.io/instance: test-argo
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: test-argo
+        app.kubernetes.io/instance: test-argo
+    spec:
+      containers:
+        - name: test-argo
+          image: localhost:5001/test-argo
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: test-argo
+            - secretRef:
+                name: test-argo
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 8080
+              scheme: HTTP
+            timeoutSeconds: 10
+            initialDelaySeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health/readiness
+              port: 8080
+              scheme: HTTP
+            timeoutSeconds: 10
+            initialDelaySeconds: 10

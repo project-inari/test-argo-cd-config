@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-argo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        env: alpha
+    spec:
+      containers:
+        - name: test-argo
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi

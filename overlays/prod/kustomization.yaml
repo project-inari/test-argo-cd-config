@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: prod
+
+resources:
+  - ../../base
+
+images:
+  - name: localhost:5001/test-argo
+    newName: localhost:5001/test-argo
+    newTag: latest
+
+patchesStrategicMerge:
+  - set_resources.yaml
+
+configMapGenerator:
+  - name: test-argo
+    envs:
+      - config.env
+
+secretGenerator:
+  - name: test-argo
+    envs:
+      - secret.env
+
+generatorOptions:
+  disableNameSuffixHash: true
