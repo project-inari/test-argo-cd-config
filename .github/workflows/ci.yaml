@@ -1,0 +1,18 @@
+name: ci
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-commit-message:
+    name: Check Commit Message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Commit Env
+        uses: gsactions/commit-message-checker@v2
+        with:
+          pattern: '^\[(ALPHA|PROD)\] .+$'
+          flags: 'gm'
+          error: 'The commit message must start with [ENV], either ALPHA or PROD.'
